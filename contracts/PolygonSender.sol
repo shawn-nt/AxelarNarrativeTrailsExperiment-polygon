@@ -39,7 +39,7 @@ contract PolygonSender is AxelarExecutable {
     // Call this function to update the value of this contract along with all its siblings'.
     function mintStamp(string calldata stampURI_) external payable {
         bytes memory payload = abi.encode(
-            "mintStamp(address, string)",
+            "mintStamp(address,string)",
             stampURI_,
             msg.sender
         );
@@ -48,7 +48,7 @@ contract PolygonSender is AxelarExecutable {
 
     function mintLetterbox(string calldata stampURI_) external payable {
         bytes memory payload = abi.encode(
-            "mintLetterbox(address, string)",
+            "mintLetterbox(address,string)",
             stampURI_,
             msg.sender
         );
