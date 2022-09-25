@@ -45,6 +45,14 @@ contract PolygonSender is AxelarExecutable {
         sendCall(payload);
     }
 
+    function mintLetterbox(string calldata stampURI_) external {
+        bytes memory payload = abi.encode(
+            "mintLetterbox(address, string)",
+            stampURI_
+        );
+        sendCall(payload);
+    }
+
     function sendCall(bytes memory payload_) internal {
         if (msg.value > 0) {
             gasReceiver.payNativeGasForContractCall{value: msg.value}(
