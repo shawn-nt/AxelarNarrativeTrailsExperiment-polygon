@@ -8,7 +8,8 @@ import {IAxelarGasService} from "@axelar-network/axelar-gmp-sdk-solidity/contrac
 import {IERC20} from "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IERC20.sol";
 
 contract PolygonSender is AxelarExecutable {
-    string public value;
+    string public functionSent;
+    string public parametersSent;
     string public sourceChain;
     string public sourceAddress;
     //this is because once deployed it should remain fairly stable and no need to be passing it with every call
@@ -38,10 +39,8 @@ contract PolygonSender is AxelarExecutable {
     // Call this function to update the value of this contract along with all its siblings'.
     function mintStamp(string calldata stampURI_) external payable {
         bytes memory payload = abi.encode(
-            "mintStamp(",
-            msg.sender,
-            stampURI_,
-            ")"
+            "mintStamp(address, string)",
+            stampURI_
         );
         sendCall(payload);
     }
@@ -65,7 +64,7 @@ contract PolygonSender is AxelarExecutable {
         string calldata sourceAddress_,
         bytes calldata payload_
     ) internal override {
-        (value) = abi.decode(payload_, (string));
+        (functionSent, parametersSent) = abi.decode(payload_, (string, string));
         sourceChain = sourceChain_;
         sourceAddress = sourceAddress_;
     }
